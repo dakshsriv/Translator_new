@@ -15,7 +15,11 @@ RATE = 44100
 CHUNK = int(RATE / 10)  # 100ms
 
 first_lang="en-US"
-second_lang="uk"
+second_lang=os.getenv("TRANSLATETO")
+if (second_lang == None):
+    second_lang = "uk"
+print("Other language is: " + second_lang)
+
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
 
@@ -132,6 +136,12 @@ def listen_print_loop(responses):
             txt = transcript+overwrite_chars
             txt = txt.lower()
             txtx = txt.split()
+            if (len(txtx) == 5 and txtx[0] == "set" and txtx[1] == "the" and txtx[2] == "language" and txtx[3] == "to"):
+                print("Going to set the language to " + txtx[4])
+                if (txtx[4] == "french"): 
+                    os.environ["TRANSLATETO"] = "fr-FR"
+                print("Language is now " + os.getenv("TRANSLATETO"))
+                break
             print(txtx)
             run(transcript+overwrite_chars)
             # Exit recognition if any of the transcribed phrases could be

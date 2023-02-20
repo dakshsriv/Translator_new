@@ -21,7 +21,7 @@ def speak(text, lang):
 	)
 	if lang == "en":
 		voice = texttospeech_v1.VoiceSelectionParams(
-		language_code="uk",
+		language_code=os.environ["TRANSLATETO"],
 		ssml_gender=texttospeech_v1.SsmlVoiceGender.MALE)
 	audio_config = texttospeech_v1.AudioConfig(
 		audio_encoding=texttospeech_v1.AudioEncoding.MP3
