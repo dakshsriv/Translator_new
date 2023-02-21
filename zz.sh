@@ -1,0 +1,1 @@
+export TRANSLATETO=fr
