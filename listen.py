@@ -1,8 +1,8 @@
 from __future__ import division
 import re
 from translate import run
-import sys
-import os
+import sys, time
+import os, asyncio
 from google.cloud import speech
 from speak import speak
 import pyaudio
@@ -20,6 +20,12 @@ second_lang=secondLanguage.getLanguage()
 if (second_lang == None):
     second_lang = "uk"
 print("Other language is: " + second_lang)
+
+def sayReady():
+    time.sleep(3)
+    print("I am ready")
+    speak("I'm ready")
+    pass
 
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
@@ -176,9 +182,9 @@ def main():
     streaming_config = speech.StreamingRecognitionConfig(
         config=config, interim_results=True
     )
-    speak("I am ready", lang="prep")
-    print("--- ***   I am ready Dash")
-
+#    speak("I am ready", lang="prep")
+#    print("--- ***   I am ready Dash")
+    sayReady()
     with MicrophoneStream(RATE, CHUNK) as stream:
         audio_generator = stream.generator()
         requests = (
@@ -190,6 +196,7 @@ def main():
         # Now, put the transcription responses to use.
         try:
             listen_print_loop(responses)
+#           speak("I am ready") 
         except:
             speak("I crashed")
             print("--- ***   I crashed")
@@ -206,4 +213,6 @@ if __name__ == "__main__":
         sys.exit()
 
     main()
+
+
 
