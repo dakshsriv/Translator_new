@@ -7,6 +7,7 @@ from google.cloud import speech
 from speak import speak
 import pyaudio
 from six.moves import queue
+import secondLanguage
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '/home/ubuntu/Translator/translator-378115-8e87c6b909b1.json'
 
@@ -15,7 +16,7 @@ RATE = 44100
 CHUNK = int(RATE / 10)  # 100ms
 
 first_lang="en-US"
-second_lang=os.getenv("TRANSLATETO")
+second_lang=secondLanguage.getLanguage()
 if (second_lang == None):
     second_lang = "uk"
 print("Other language is: " + second_lang)
@@ -139,8 +140,10 @@ def listen_print_loop(responses):
             if (len(txtx) == 5 and txtx[0] == "set" and txtx[1] == "the" and txtx[2] == "language" and txtx[3] == "to"):
                 print("Going to set the language to " + txtx[4])
                 if (txtx[4] == "french"): 
-                    os.environ["TRANSLATETO"] = "fr-FR"
-                print("Language is now " + os.getenv("TRANSLATETO"))
+                    secondLanguage.setLanguage("fr-FR")
+                elif (txtx[4] == "ukrainian"):
+                    secondLanguage.setLanguage("uk")
+                print("Language is now " + secondLanguage.getLanguage())
                 break
             print(txtx)
             run(transcript+overwrite_chars)

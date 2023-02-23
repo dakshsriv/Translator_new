@@ -1,8 +1,9 @@
 from speak import speak
 from googletrans import Translator
 import os
+import secondLanguage
 
-destination = os.getenv('TRANSLATETO')
+destination = secondLanguage.getLanguage()
 
 def run(preText):
     translator = Translator()

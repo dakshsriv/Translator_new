@@ -1,9 +1,27 @@
-import os
+#import os
+import json
 
-file = open("secondLanguage.txt", "r+")
+
 def setLanguage(language):
-    file.write(language)
-    os.system(f"export TRANSLATETO={language}")
+    file = open("secondLanguage.json", "w")
+    data = {"secondLang" : language}
+    json.dump(data, file)
+    file.close()
+#    os.system(f"export TRANSLATETO={language}")
+
+def getLanguage():
+    file = open("secondLanguage.json", "r")
+    data = json.load(file)
+    return data["secondLang"]
+
+#setLanguage('fr')
+#print(getLanguage())
 
 
-setLanguage('fr')
+
+
+
+
+
+
+
