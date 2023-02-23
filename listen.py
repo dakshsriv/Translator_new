@@ -149,7 +149,7 @@ def listen_print_loop(responses):
                     secondLanguage.setLanguage("fr-FR")
                 elif (txtx[4] == "ukrainian"):
                     secondLanguage.setLanguage("uk")
-                print("Language is now " + secondLanguage.getLanguage())
+                speak("The language is now " + secondLanguage.getLanguage())
                 break
             print(txtx)
             run(transcript+overwrite_chars)
